@@ -14,7 +14,7 @@ class ConfiguracaoAdmin(admin.ModelAdmin):
         "cep",
         "telefone",
     )
-    list_display = ("nome", "endereco", "cep","telefone")
+    list_display = ("nome", "endereco", "cep", "telefone")
     inlines = [
         Dias_semanaInline,
     ]

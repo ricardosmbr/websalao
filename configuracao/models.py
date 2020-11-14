@@ -1,6 +1,6 @@
 from django.db import models
-from __future__ import unicode_literals
-
+from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 DIAS_SEMANA = (
     ("SEGUNDA", "Segunda-feira"),
@@ -28,14 +28,3 @@ class Dias_semana(models.Model):
     hora_inicio = models.TimeField(blank=True, null=True)
     hora_fim = models.TimeField(blank=True, null=True)
     id_configuracao = models.ForeignKey(Configuracao, on_delete=models.CASCADE)
-
-
-class Event(models.Model):
-    day = models.DateField(u'Day of the event', help_text=u'Day of the event')
-    start_time = models.TimeField(u'Starting time', help_text=u'Starting time')
-    end_time = models.TimeField(u'Final time', help_text=u'Final time')
-    notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
-
-    class Meta:
-        verbose_name = u'Scheduling'
-        verbose_name_plural = u'Scheduling'
