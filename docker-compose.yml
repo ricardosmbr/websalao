@@ -1,0 +1,36 @@
+version: "3.1"
+
+services:
+  
+#   db:
+#     image: postgres
+#     restart: always
+#     environment:
+#       POSTGRES_PASSWORD: "mypassword"
+#       POSTGRES_USER: "myuser"
+#       POSTGRES_DB: "salao"
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+
+  websalao:
+    build: .
+    restart: always
+    command: python3 manage.py runserver 0.0.0.0:8050
+    volumes:
+      - .:/code
+    ports:
+      - "8050:8050"
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "ricardosm@rede.ulbra.br"
+  #     PGADMIN_DEFAULT_PASSWORD: "2323"
+  #   ports:
+  #     - "16543:80"
+  #   depends_on:
+  #     - db
