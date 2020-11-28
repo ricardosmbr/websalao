@@ -46,7 +46,7 @@ class EventAdmin(admin.ModelAdmin):
         html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
         html_calendar = html_calendar.replace('<td ', '<td  width="150" height="150"')
         extra_context['calendar'] = mark_safe(html_calendar)
-        print(extra_context['calendar'])
+        # print(extra_context['calendar'])
         return super(EventAdmin, self).changelist_view(request, extra_context)
 
 admin.site.register(Event, EventAdmin)

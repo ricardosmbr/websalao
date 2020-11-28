@@ -69,8 +69,8 @@ class AgendaServicoAdmin(admin.ModelAdmin):
             except:
                 d = datetime.date.today()
 
-        previous_month = datetime.date(year=d.year, month=d.month, day=(d.day-7))  # find first day of current month
-        next_month = datetime.date(year=d.year, month=d.month, day=(d.day+7))  # find last day of current month
+        previous_month = d-datetime.timedelta(days=7)
+        next_month = d+datetime.timedelta(days=7)  # find last day of current month
         extra_context['previous_month'] = reverse('admin:events_event_changelist') + '?day__gte=' + str(
             previous_month)
         extra_context['next_month'] = reverse('admin:events_event_changelist') + '?day__gte=' + str(next_month)
@@ -79,7 +79,7 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
         html_calendar = html_calendar.replace('<td ', '<td  width="150" height="150"')
         extra_context['agenda'] = mark_safe(html_calendar)
-        print(extra_context)
+        # print(extra_context)
         return super(AgendaServicoAdmin, self).changelist_view(request, extra_context)
 
 
