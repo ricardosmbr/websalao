@@ -2,6 +2,7 @@ from calendar import HTMLCalendar
 from datetime import datetime as dtime, date, time
 import datetime
 from .models import Event
+from aplicacao.models import AgendaServico
 
 
 class EventCalendar(HTMLCalendar):
@@ -13,15 +14,18 @@ class EventCalendar(HTMLCalendar):
         """
         Return a day as a table cell.
         """
-        events_from_day = events.filter(day__day=day)
+        # print(day,weekday,events)
+        events_from_day = events.filter(data__day=day)
+        # print(events_from_day)
         events_html = "<ul>"
         for event in events_from_day:
             events_html += event.get_absolute_url() + "<br>"
         events_html += "</ul>"
-
+        # print(day)
         if day == 0:
             return '<td class="noday">&nbsp;</td>'  # day outside month
         else:
+            # print('<td class="%s">%d%s</td>' % (self.cssclasses[weekday], day, events_html))
             return '<td class="%s">%d%s</td>' % (self.cssclasses[weekday], day, events_html)
 
     def formatweek(self, theweek, events):
@@ -35,8 +39,8 @@ class EventCalendar(HTMLCalendar):
         """
         Return a formatted month as a table.
         """
-
-        events = Event.objects.filter(day__month=themonth)
+        # events = Event.objects.filter(day__month=themonth)
+        events = AgendaServico.objects.filter(data__month=themonth)
         # print(events)
         v = []
         a = v.append

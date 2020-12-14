@@ -10,20 +10,29 @@ class AgendaEvent(HTMLCalendar):
     def __init__(self, events=None):
         super(AgendaEvent, self).__init__()
         self.events = events
-    def formatday(self, day, weekday, events):
+    def formatday(self, day, hora,pro, events):
         """
         Return a day as a table cell.
         """
-        events_from_day = events.filter(day__day=day)
+        # print(dir(hora))
+        # print(hora.seconds/3600)
+        if(hora):
+            events_from_day = events.filter(
+                data__day=day,
+                hora__hour=int(hora.seconds/3600),
+                profissional=pro
+            )
+        # print(events_from_day)
         events_html = "<ul>"
         for event in events_from_day:
+            # print(event.hora, hora)
             events_html += event.get_absolute_url() + "<br>"
         events_html += "</ul>"
 
         if day == 0:
             return '<td class="noday">&nbsp;</td>'  # day outside month
         else:
-            return '<td class="%s">%d%s</td>' % (self.cssclasses[weekday], day, events_html)
+            return '<td class="">%s</td>' % ( events_html)
 
     def formatweek(self, theweek, events):
         """
@@ -33,18 +42,23 @@ class AgendaEvent(HTMLCalendar):
 
         return '<tr>%s</tr>' % s
 
-    def formatmonth(self, theyear, themonth, withyear=True):
+    def formatmonth(self,data, theyear, themonth, withyear=True):
         """
         Return a formatted month as a table.
         """
         # print(themonth)
         events = AgendaServico.objects.filter(data__month=themonth)
+        print(events.count())
         proficionais = Profissionais.objects.all()
         confi = Configuracao.objects.all().first()
         hora  = Dias_semana.objects.filter(id_configuracao=confi)
+        today = data
+        dias = ('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo')
+        meses = ('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Nvembro','Dezembro')
         v = []
         a = v.append
         a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
+        a((dias[today.weekday()] +" "+ str(today.day) +" de " + meses[today.month-1]+" de "+ str(today.year)))
         profi = '<tr><th>Horário</th>'
         for pro in proficionais:
             profi = profi + '<th>' + pro.nome+'</th>'
@@ -53,7 +67,6 @@ class AgendaEvent(HTMLCalendar):
         a(profi)
         linha = '<tr>'
         qtde = 0
-        today = date.today()
         for coluna in hora:
             if(today.weekday()==0 and coluna.nome =='SEGUNDA'):
                 qtde = (coluna.hora_fim.hour - coluna.hora_inicio.hour)
@@ -69,33 +82,21 @@ class AgendaEvent(HTMLCalendar):
                 qtde = (coluna.hora_fim.hour - coluna.hora_inicio.hour)
             elif(today.weekday()==6 and coluna.nome =='Domingo'):
                 qtde = (coluna.hora_fim.hour - coluna.hora_inicio.hour)
-
+        print(qtde)
         for i in range(qtde):
             uma = timedelta(hours=qtde + i)
             linha = linha + '<th>'+str(uma)+'</th>'
             for pro in proficionais:
-                linha = linha + '<th></th>'
+                # linha = linha + '<th></th>'
+                linha = linha + self.formatday(today.day,uma,pro,events)
+                # print(linha)
             linha = linha + '</tr>'
             a(linha + '\n')
             linha = ''
-            meia = timedelta(hours=qtde + i)+timedelta(minutes=30)
-            linha = linha + '<th>'+str(meia)+'</th>'
-            for pro in proficionais:
-                linha = linha + '<th></th>'
-            linha = linha + '</tr>'
-            a(linha + '\n')
-            linha = ''
-        # print("passo 1")
-        # a(self.formatmonthname(theyear, themonth, withyear=withyear)) 
-        # print(''.join(v))       
+        
         a('\n')
-        # a(self.formatweekheader())
-        a('\n')
-        # for week in self.monthdays2calendar(theyear, themonth):
-        #     # a(self.formatweek(week, events))
-        #     a('\n')
         a('</table>')
-        # a('\n')
+        a('\n')
         # print(''.join(v))
         return ''.join(v)
         return None

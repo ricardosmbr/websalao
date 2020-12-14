@@ -57,27 +57,30 @@ class AgendaServicoAdmin(admin.ModelAdmin):
     change_list_template = 'admin/events/agenda.html'
     # model = AgendaServico
     def changelist_view(self, request, extra_context=None):
-        after_day = request.GET.get('day__gte', None)
+        after_day = request.GET.get('data__gte', None)
+        # print(admin.site.urls)
         extra_context = extra_context or {}
-        
+        profi = Profissionais.objects.all().count()
+        tamanho = '<td  width="' + str(900 / profi) + '" height="100"'
+
         if not after_day:
             d = datetime.date.today()
         else:
             try:
                 split_after_day = after_day.split('-')
-                d = datetime.date(year=int(split_after_day[0]), month=int(split_after_day[1]), day=1)
+                d = datetime.date(year=int(split_after_day[0]), month=int(split_after_day[1]), day=int(split_after_day[2]))
             except:
                 d = datetime.date.today()
-
-        previous_month = d-datetime.timedelta(days=7)
-        next_month = d+datetime.timedelta(days=7)  # find last day of current month
-        extra_context['previous_month'] = reverse('admin:events_event_changelist') + '?day__gte=' + str(
+       
+        previous_month = d-datetime.timedelta(days=1)
+        next_month = d+datetime.timedelta(days=1)  # find last day of current month
+        extra_context['previous_day'] = reverse('admin:aplicacao_agendaservico_changelist') + '?data__gte=' + str(
             previous_month)
-        extra_context['next_month'] = reverse('admin:events_event_changelist') + '?day__gte=' + str(next_month)
+        extra_context['next_day'] = reverse('admin:aplicacao_agendaservico_changelist') + '?data__gte=' + str(next_month)
 
         cal = AgendaEvent()
-        html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
-        html_calendar = html_calendar.replace('<td ', '<td  width="150" height="150"')
+        html_calendar = cal.formatmonth(d, d.year, d.month, withyear=True)
+        html_calendar = html_calendar.replace('<td ', tamanho)
         extra_context['agenda'] = mark_safe(html_calendar)
         # print(extra_context)
         return super(AgendaServicoAdmin, self).changelist_view(request, extra_context)

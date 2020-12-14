@@ -17,7 +17,7 @@ class EventAdmin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         after_day = request.GET.get('day__gte', None)
         extra_context = extra_context or {}
-
+        print(after_day)
         if not after_day:
             d = datetime.date.today()
         else:

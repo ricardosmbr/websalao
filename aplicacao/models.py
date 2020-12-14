@@ -68,12 +68,32 @@ class Servicos(models.Model):
 
 class AgendaServico(models.Model):
     cliente = models.ForeignKey(Clientes,on_delete=models.CASCADE)
+    profissional = models.ForeignKey(Profissionais, on_delete=models.CASCADE)
     servico = models.ManyToManyField(Servicos)
     data = models.DateField()
     hora = models.TimeField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     observacao = models.CharField(max_length=255, null=True, blank=True)
+    
+    def __str__(self):
+        return self.cliente.nome
 
     class Meta:
         verbose_name = "Agenda de Serviço"
         verbose_name_plural = "Agenda de Serviços"
+
+    def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
+        overlap = False
+        if new_start == fixed_end or new_end == fixed_start:    #edge case
+            overlap = False
+        elif (new_start >= fixed_start and new_start <= fixed_end) or (new_end >= fixed_start and new_end <= fixed_end): #innner limits
+            overlap = True
+        elif new_start <= fixed_start and new_end >= fixed_end: #outter limits
+            overlap = True
+
+        return overlap
+
+    def get_absolute_url(self):
+        url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
+        return u'<a href="%s">%s</a>' % (url, str(self.data))
+        

@@ -14,8 +14,8 @@ class Event(models.Model):
     notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
 
     class Meta:
-        verbose_name = u'Scheduling'
-        verbose_name_plural = u'Scheduling'
+        verbose_name = u'Calendário'
+        verbose_name_plural = u'Calendário'
 
     def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
         overlap = False
