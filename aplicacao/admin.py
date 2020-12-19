@@ -64,7 +64,7 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         if(profi):
             tamanho = '<td  width="' + str(900 / profi) + '" height="100"'
         else:
-            tamanho = 0
+            tamanho = ""
 
         if not after_day:
             d = datetime.date.today()
