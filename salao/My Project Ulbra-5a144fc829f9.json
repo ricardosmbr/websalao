@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "my-project-ulbra",
+  "private_key_id": "5a144fc829f9d66432d79de10ce327c0d28dd7b2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD3s24C6RqpfQ5Q\nAakwuZWUnd4dDe/Cc8G+R3XK2/zO0chvfLzkz+9nBb6cgb7mXztqYTmdh5QLVopH\nuCbpQdX7KIlUjXT7/oxFNiENutn1e1vrmCJBOhEnnoh3nPwHIn8i2QBWUMlcZeZV\nuqOmlYqFzwE4p/VsjFgsLiI6zqH4aQMNWTH9Sw/6IzuIESMi2akUqhHIyto0CfXe\nl+J5WHbCqjdxGuYouiWSPEvBvWe5sAAkxfZr03opcryyXx1HO4CtrZRY6Yj7I5+m\nIILqkfLOmo2ynEE27nyrYNqhYu+DllBd4gAC6IMcNrC0FsX5oY92vJp+Tcqgvx33\noAHoS7KhAgMBAAECggEAe0Q5zQ0ADbSEOOB6uBrDC5B8hmz3EgfVNMIPJoLPjoTr\ngD/NKPkppFVBhFU1ESP3R3tW1sQvsmzAp+xGwPHYcQK9ROyYeQc1+wNy84g3C2j2\nV4oAEgG5o8PLGetvqIVMS6U9+7Z8XpT/SU52PmJQ60IW04ESK5C0GFhlBGrsQ9fT\n3piyqnRlFGRN1M1GokHTHPZF2zr+NIvskeI3u5OI89h6HVna+Cnj7RQ7e0Tdn01A\ng8wTsaWX9Cxub0cpZh+1aalYJ0dCwuO7QjLTccQhfhBosB+2Fq8TxISTXs2beZ7F\nC/I/OMRMsuAQdKaBl/mn5e9Te5Dlngi2pv0H7T/C+QKBgQD+AwAoZMTAK+hqpP/+\n+PhCpNbC7qXEoACPuvegnsCb/wkwNwXQjzByAXVmlyr5G3X/Pf6/JUqWbAnlskCi\nlS9SdBAXqIkrMU5akqSpeg/jPqmhxrnAhDU7LFe2Fp9wukvP9jBRmuBDQaTi9xar\neGxWZpaAhNHvvI9HqvlDlEJzcwKBgQD5o8iBLhgkMC3k5O0qAdhQxC4GW+uFc44P\ng8phTNbFZyrtNyGYAmYkmtavCnMXIKElXIu4ttFnyL2z4nOXvmzbd04xqNx/DY3C\nvtHRld/d587VZ7q0ZCBcpIGJnZw2+G66qFjhOyc2LJLwcVMh6SfJJlJUWe8jOVmj\nN8pHQDYEmwKBgGch7sF30I66BR6vqaTrj1j3tp7k6HdCA5hX8EzNyCROU3u5C2pX\niPLw9qrVu8Pyy2D72d/gEz2p1gbl7epVKiaPKy1/51mbJlYN7j9FaQf6HEOr/SVW\nSIqjAWXUH55UdY2VRp8Lg/yqvXjNm+248jvOYVMDGn39ECuoFpbCroxTAoGALow3\nir7JiZXiONfm0PpfF1A9NLpXBB8z0fjE97eYJF7ERk8NWIa5/QFSHnlYVGulII5N\nDzgne66WkMAcxaKgMZvhXKkb1CT21eU2wlmr0Hi0vF4HFjPFRQD3lm1o/2b7Xpqd\nWAHrodJV47d9xMjwvjUDDO9oA61h5Wk1smtqpxkCgYEAsRYzsQrhX5pYbbeHLwJW\nJeQpY8dvda7/g8YprG7D1AdbMUzJe9lK10h3AHjXaI99k01HzCke0D9xcpUw5U/T\noKI+ei1LwSdmlwfMFsSnNlE42OK++GOz1zh1GLjYjwVqQv7NiYNH8VtQ2tFaDRq8\nUbCImy8mA7T0lhva7dPBOZU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "my-project-ulbra@appspot.gserviceaccount.com",
+  "client_id": "102424388167119908659",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-project-ulbra%40appspot.gserviceaccount.com"
+}
