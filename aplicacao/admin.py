@@ -61,7 +61,10 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         # print(admin.site.urls)
         extra_context = extra_context or {}
         profi = Profissionais.objects.all().count()
-        tamanho = '<td  width="' + str(900 / profi) + '" height="100"'
+        if(profi):
+            tamanho = '<td  width="' + str(900 / profi) + '" height="100"'
+        else:
+            tamanho = 0
 
         if not after_day:
             d = datetime.date.today()
