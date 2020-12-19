@@ -76,19 +76,23 @@ WSGI_APPLICATION = 'salao.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+if(os.getenv("DATABASE_NAME")):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": os.getenv("DATABASE_HOST"),
+            "PORT": os.getenv("DATABASE_PORT"),
+            "USER": os.getenv("DATABASE_USER"),
+            "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+            "NAME": os.getenv("DATABASE_NAME"),
+        }
+    }
+else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql",
-    #     "HOST": os.getenv("DATABASE_HOST"),
-    #     "PORT": os.getenv("DATABASE_PORT"),
-    #     "USER": os.getenv("DATABASE_USER"),
-    #     "PASSWORD": os.getenv("DATABASE_PASSWORD"),
-    #     "NAME": os.getenv("DATABASE_NAME"),
-    # }
 }
 
 
