@@ -57,8 +57,8 @@ class AgendaEvent(HTMLCalendar):
         meses = ('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Nvembro','Dezembro')
         v = []
         a = v.append
-        a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
         a((dias[today.weekday()] +" "+ str(today.day) +" de " + meses[today.month-1]+" de "+ str(today.year)))
+        a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
         profi = '<tr><th>Horário</th>'
         for pro in proficionais:
             profi = profi + '<th>' + pro.nome+'</th>'
