@@ -89,8 +89,6 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         return super(AgendaServicoAdmin, self).changelist_view(request, extra_context)
 
 
-
-
 admin.site.register(Clientes, ClientesAdmin)
 admin.site.register(Profissionais, ProfissionaisAdmin)
 admin.site.register(AgendaServico, AgendaServicoAdmin)
