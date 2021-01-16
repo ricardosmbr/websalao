@@ -95,6 +95,28 @@ class AgendaServico(models.Model):
 
     def get_absolute_url(self):
         url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
-        return u'<a href="%s">%s</a>' % (url, str(self.data))
+        return u'<a href="%s">%s</a>' % (url, str(self.cliente))
 
-  
+TIPO_MOEDA = (
+    ("DINHEIRO","Dinheiro"),
+    ("CARTÂO_DEBITO","Cartão Débito"),
+    ("CARTÂO_CREDITO","Cartão Crédito"),
+    ("CHEQUE","Cheque")
+)
+
+
+class Pagamento(models.Model):
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    tipo_moeda = models.CharField(
+        max_length=30,
+        choices=TIPO_MOEDA, 
+        default = "PENDENTE",
+        null=True, 
+        blank=True
+    )
+    data = models.DateTimeField(auto_now=True, blank=True)
+    agenda = models.ForeignKey(AgendaServico, on_delete=models.CASCADE)
+
+class Caixa(models.Model):
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    pagamento = models.ForeignKey(Pagamento, on_delete=models.CASCADE)

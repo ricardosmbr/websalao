@@ -48,7 +48,6 @@ class AgendaEvent(HTMLCalendar):
         """
         # print(themonth)
         events = AgendaServico.objects.filter(data__month=themonth)
-        print(events.count())
         proficionais = Profissionais.objects.all()
         confi = Configuracao.objects.all().first()
         hora  = Dias_semana.objects.filter(id_configuracao=confi)
@@ -82,7 +81,7 @@ class AgendaEvent(HTMLCalendar):
                 qtde = (coluna.hora_fim.hour - coluna.hora_inicio.hour)
             elif(today.weekday()==6 and coluna.nome =='Domingo'):
                 qtde = (coluna.hora_fim.hour - coluna.hora_inicio.hour)
-        print(qtde)
+        # print(qtde)
         for i in range(qtde):
             uma = timedelta(hours=qtde + i)
             linha = linha + '<th>'+str(uma)+'</th>'

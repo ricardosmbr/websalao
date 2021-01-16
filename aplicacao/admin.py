@@ -4,7 +4,8 @@ from .models import (
     Profissionais, 
     Especializacao, 
     Servicos,
-    AgendaServico
+    AgendaServico,
+    Pagamento
 )
 from .utils import AgendaEvent
 from django.urls import reverse
@@ -34,6 +35,11 @@ class EspecializacaoInline(admin.TabularInline):
 class ServicosInline(admin.TabularInline):
     model = Servicos
 
+
+class PagamentoInline(admin.TabularInline):
+    model = Pagamento
+    extra = 0
+
 class ProfissionaisAdmin(admin.ModelAdmin):
 
     fields = (
@@ -55,6 +61,9 @@ class AgendaServicoAdmin(admin.ModelAdmin):
 
     list_display = ['cliente', 'data', 'hora', 'valor', 'observacao']
     change_list_template = 'admin/events/agenda.html'
+    inlines = [
+        PagamentoInline
+    ]
     # model = AgendaServico
     def changelist_view(self, request, extra_context=None):
         after_day = request.GET.get('data__gte', None)
