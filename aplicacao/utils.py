@@ -48,7 +48,7 @@ class AgendaEvent(HTMLCalendar):
         """
         # print(themonth)
         events = AgendaServico.objects.filter(data__month=themonth)
-        proficionais = Profissionais.objects.all()
+        proficionais = Profissionais.objects.all().order_by("nome")
         confi = Configuracao.objects.all().first()
         hora  = Dias_semana.objects.filter(id_configuracao=confi)
         today = data

@@ -24,7 +24,7 @@ class ClientesAdmin(admin.ModelAdmin):
         "email",
     )
     readonly_fields = ('criado_em', 'atualizado_em',)
-    list_display = ("nome", "email", "criado_em", "atualizado_em")
+    list_display = ("nome", "telefone", "celular","nascimento")
     model = Clientes
 
 
@@ -50,7 +50,7 @@ class ProfissionaisAdmin(admin.ModelAdmin):
         "email",
         "comissao",
     )
-    list_display = ("nome", "email", "comissao")
+    list_display = ("nome", "telefone", "comissao")
     inlines = [
         EspecializacaoInline,
         ServicosInline,

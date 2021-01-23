@@ -65,6 +65,7 @@ class Servicos(models.Model):
     class Meta:
         verbose_name = "Serviço"
         verbose_name_plural = "Serviços"
+        ordering = ["nome"]
 
 class AgendaServico(models.Model):
     cliente = models.ForeignKey(Clientes,on_delete=models.CASCADE)
