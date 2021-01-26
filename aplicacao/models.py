@@ -97,6 +97,7 @@ class AgendaServico(models.Model):
     def get_absolute_url(self):
         url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
         return u'<a href="%s">%s</a>' % (url, str(self.cliente))
+        
 
 TIPO_MOEDA = (
     ("DINHEIRO","Dinheiro"),
@@ -104,6 +105,14 @@ TIPO_MOEDA = (
     ("CARTÂO_CREDITO","Cartão Crédito"),
     ("CHEQUE","Cheque")
 )
+
+
+class Caixa(models.Model):
+    data = models.DateField()
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return str(self.data.strftime("%d-%m-%Y"))
 
 
 class Pagamento(models.Model):
@@ -117,7 +126,27 @@ class Pagamento(models.Model):
     )
     data = models.DateTimeField(auto_now=True, blank=True)
     agenda = models.ForeignKey(AgendaServico, on_delete=models.CASCADE)
+    caixa = models.ForeignKey(Caixa, on_delete=models.CASCADE, null=True, blank=True)
+    efetuado = models.BooleanField(default=False)
 
-class Caixa(models.Model):
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
-    pagamento = models.ForeignKey(Pagamento, on_delete=models.CASCADE)
+    def __str__(self):
+        val = str(self.agenda)
+        return str(self.valor)+" "+val
+
+    def save(self, *args, **kwargs):
+        
+        if(self.efetuado):
+            val = Pagamento.objects.get(pk=self.id)
+            self.caixa.valor = self.caixa.valor - val.valor + self.valor
+            self.caixa.save()
+        else:           
+            self.caixa.valor = self.caixa.valor + self.valor
+            self.caixa.save()
+            self.efetuado = True
+        super().save(*args, **kwargs)
+
+    def delete(self):
+        self.caixa 
+        self.caixa.valor = self.caixa.valor - self.valor
+        self.caixa.save()
+        super(Pagamento, self).delete()

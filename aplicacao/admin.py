@@ -5,7 +5,8 @@ from .models import (
     Especializacao, 
     Servicos,
     AgendaServico,
-    Pagamento
+    Pagamento,
+    Caixa
 )
 from .utils import AgendaEvent
 from django.urls import reverse
@@ -38,6 +39,7 @@ class ServicosInline(admin.TabularInline):
 
 class PagamentoInline(admin.TabularInline):
     model = Pagamento
+    exclude = ('efetuado',)
     extra = 0
 
 class ProfissionaisAdmin(admin.ModelAdmin):
@@ -97,7 +99,14 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         # print(extra_context)
         return super(AgendaServicoAdmin, self).changelist_view(request, extra_context)
 
+class CaixaAdmin(admin.ModelAdmin):
+    list_display = ['data', 'valor']
+    model = Caixa
+    inlines = [
+        PagamentoInline
+    ]
 
 admin.site.register(Clientes, ClientesAdmin)
 admin.site.register(Profissionais, ProfissionaisAdmin)
 admin.site.register(AgendaServico, AgendaServicoAdmin)
+admin.site.register(Caixa, CaixaAdmin)
