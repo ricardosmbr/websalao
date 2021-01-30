@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.urls import reverse
@@ -133,13 +133,20 @@ class Pagamento(models.Model):
         val = str(self.agenda)
         return str(self.valor)+" "+val
 
+    def clean(self):
+        if not self.caixa:
+            raise ValidationError("Voce precisa escolher um caixa")       
+ 
     def save(self, *args, **kwargs):
         
         if(self.efetuado):
             val = Pagamento.objects.get(pk=self.id)
             self.caixa.valor = self.caixa.valor - val.valor + self.valor
             self.caixa.save()
-        else:           
+        else:
+            if not self.caixa:
+                self.clean()
+                # raise ValueError("Voce precisa escolher um caixa")         
             self.caixa.valor = self.caixa.valor + self.valor
             self.caixa.save()
             self.efetuado = True
