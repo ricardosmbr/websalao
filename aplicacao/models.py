@@ -157,3 +157,19 @@ class Pagamento(models.Model):
         self.caixa.valor = self.caixa.valor - self.valor
         self.caixa.save()
         super(Pagamento, self).delete()
+
+class Produto(models.Model):
+    nome = models.CharField(max_length=200)
+    descricao = models.CharField(max_length=255,null=True,blank=True)
+    valor_custo = models.DecimalField(max_digits=10,decimal_places=2)
+    valor_venda = models.DecimalField(max_digits=10,decimal_places=2)
+    quantidade = models.IntegerField()
+
+    def __str__(self):
+        return self.nome
+
+class Pedido(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.IntegerField()
+    valor_venda = models.DecimalField(max_digits=10,decimal_places=2)
+    agenda = models.ForeignKey(AgendaServico, on_delete=models.CASCADE, null=True, blank=True)

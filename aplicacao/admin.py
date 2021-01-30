@@ -6,7 +6,9 @@ from .models import (
     Servicos,
     AgendaServico,
     Pagamento,
-    Caixa
+    Caixa,
+    Produto,
+    Pedido
 )
 from .utils import AgendaEvent
 from django.urls import reverse
@@ -42,6 +44,22 @@ class PagamentoInline(admin.TabularInline):
     exclude = ('efetuado',)
     extra = 0
 
+class ProdutoInline(admin.TabularInline):
+    model = Produto
+    exclude = ('valor_custo',)
+    extra = 0
+
+class ProdutoAdmin(admin.ModelAdmin):
+    list_display = ("nome","valor_venda")
+    model = Produto
+
+
+class PedidoInline(admin.TabularInline):
+    list_display = ("produto","quantidade","valor_venda")
+    model = Pedido
+    extra = 0
+
+
 class ProfissionaisAdmin(admin.ModelAdmin):
 
     fields = (
@@ -64,6 +82,7 @@ class AgendaServicoAdmin(admin.ModelAdmin):
     list_display = ['cliente', 'data', 'hora', 'valor', 'observacao']
     change_list_template = 'admin/events/agenda.html'
     inlines = [
+        PedidoInline,
         PagamentoInline
     ]
     # model = AgendaServico
@@ -110,3 +129,4 @@ admin.site.register(Clientes, ClientesAdmin)
 admin.site.register(Profissionais, ProfissionaisAdmin)
 admin.site.register(AgendaServico, AgendaServicoAdmin)
 admin.site.register(Caixa, CaixaAdmin)
+admin.site.register(Produto,ProdutoAdmin)
