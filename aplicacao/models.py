@@ -173,3 +173,7 @@ class Pedido(models.Model):
     quantidade = models.IntegerField()
     valor_venda = models.DecimalField(max_digits=10,decimal_places=2)
     agenda = models.ForeignKey(AgendaServico, on_delete=models.CASCADE, null=True, blank=True)
+
+    def clean(self):
+        print(self.valor_venda)
+        self.valor_venda =2.0

@@ -1,5 +1,5 @@
 'use strict';
-{
+{   
     const toggleNavSidebar = document.getElementById('toggle-nav-sidebar');
     if (toggleNavSidebar !== null) {
         const navLinks = document.querySelectorAll('#nav-sidebar a');
