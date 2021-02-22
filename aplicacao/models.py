@@ -116,6 +116,7 @@ class Caixa(models.Model):
 
 
 class Pagamento(models.Model):
+    
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     tipo_moeda = models.CharField(
         max_length=30,
@@ -132,6 +133,8 @@ class Pagamento(models.Model):
     def __str__(self):
         val = str(self.agenda)
         return str(self.valor)+" "+val
+
+
 
     def clean(self):
         if not self.caixa:
@@ -168,12 +171,10 @@ class Produto(models.Model):
     def __str__(self):
         return self.nome
 
+
 class Pedido(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.IntegerField()
     valor_venda = models.DecimalField(max_digits=10,decimal_places=2)
     agenda = models.ForeignKey(AgendaServico, on_delete=models.CASCADE, null=True, blank=True)
-
-    def clean(self):
-        print(self.valor_venda)
-        self.valor_venda =2.0
+ 

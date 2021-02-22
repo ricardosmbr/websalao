@@ -1,6 +1,9 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
-
+{% load i18n static %}
+{% block extrastyle %}
+  {{ block.super }}
+  <script src='{% static "js/myscript.js" %}'></script>
+{% endblock %}
 {% block title %} {{ title }} | {% trans 'Studio Flávia Martins' %} {% endblock %}
 
 {% block branding %}

@@ -85,12 +85,6 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         PedidoInline,
         PagamentoInline
     ]
-    class Media:
-        js = (
-            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', # jquery
-            'js/myscript.js',       # project static folder
-            'myscript.js',   # app static folder
-        )
     
     # model = AgendaServico
     def changelist_view(self, request, extra_context=None):
