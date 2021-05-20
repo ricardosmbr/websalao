@@ -27,4 +27,5 @@ app.conf.beat_schedule = {
 
 @app.task()
 def teste():
+    print("celery true")
     return True
