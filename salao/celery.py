@@ -20,7 +20,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     "teste_celery": {
         "task": "salao.celery.teste",
-        "schedule": 10,
+        "schedule": 30,
     },
 }
 
