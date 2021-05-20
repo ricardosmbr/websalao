@@ -1,7 +1,6 @@
 import os
 
 from celery import Celery
-from celery import task
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "salao.settings")
@@ -19,13 +18,13 @@ app.autodiscover_tasks()
 
 
 app.conf.beat_schedule = {
-    "teste": {
-        "task": "salao.salao.teste",
-        "schedule": 20,
+    "teste_celery": {
+        "task": "salao.celery.teste",
+        "schedule": 10,
     },
 }
 
 
-@app.task
+@app.task()
 def teste():
-    return "Corredor"
+    return True
