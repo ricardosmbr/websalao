@@ -46,4 +46,3 @@ Unidecode==1.1.1
 urllib3==1.26.4
 whitenoise==5.2.0
 celery==5.0.5
-redis==3.5.3
