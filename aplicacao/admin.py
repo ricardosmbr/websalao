@@ -13,28 +13,11 @@ from .models import (
 from .utils import AgendaEvent
 from django.urls import reverse
 import datetime
+import calendar
+from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
-import csv
-from django.http import HttpResponse
-
-
-class ExportCsvMixin:
-    def export_as_csv(self, request, queryset):
-
-        meta = self.model._meta
-        field_names = [field.name for field in meta.fields]
-
-        response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = "attachment; filename={}.csv".format(meta)
-        writer = csv.writer(response)
-
-        writer.writerow(field_names)
-        for obj in queryset:
-            row = writer.writerow([getattr(obj, field) for field in field_names])
-
-        return response
-
-    export_as_csv.short_description = "Export Selected"
+from import_export.admin import ImportExportModelAdmin
+from django.contrib import admin
 
 
 class ClientesAdmin(admin.ModelAdmin):
@@ -154,11 +137,10 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         return super(AgendaServicoAdmin, self).changelist_view(request, extra_context)
 
 
-class CaixaAdmin(admin.ModelAdmin, ExportCsvMixin):
+class CaixaAdmin(ImportExportModelAdmin):
     list_display = ["data", "valor"]
     model = Caixa
     inlines = [PagamentoInline]
-    actions = ["export_as_csv"]
 
 
 admin.site.register(Clientes, ClientesAdmin)

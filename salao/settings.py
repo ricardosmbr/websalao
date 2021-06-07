@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "configuracao",
     "events",
     "debug_toolbar",
+    "import_export",
 ]
 
 MIDDLEWARE = [
