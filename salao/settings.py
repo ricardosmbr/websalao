@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     "aplicacao",
     "configuracao",
     "events",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -139,3 +141,10 @@ STATICFILES_DIRS = [
     "static",
 ]
 CELERY_BROKER_URL = "redis://h:TruQ6L0MfDmD6kc4lg5WhXEmTn1oeEKf@redis-10341.c212.ap-south-1-1.ec2.cloud.redislabs.com:10341"
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    "172.21.0.1",
+    # ...
+]
