@@ -13,8 +13,6 @@ from .models import (
 from .utils import AgendaEvent
 from django.urls import reverse
 import datetime
-import calendar
-from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 import csv
 from django.http import HttpResponse
