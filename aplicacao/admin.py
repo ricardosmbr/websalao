@@ -13,11 +13,11 @@ from .models import (
 from .utils import AgendaEvent
 from django.urls import reverse
 import datetime
-import calendar
-from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
+from django.http import HttpResponse
+import csv
 
 
 class ClientesAdmin(admin.ModelAdmin):
