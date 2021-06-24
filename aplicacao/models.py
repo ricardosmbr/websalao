@@ -144,9 +144,13 @@ class Pagamento(models.Model):
 
     def clean(self):
         if not self.caixa:
-            raise ValidationError("Voce precisa escolher um caixa")
+            raise ValidationError("Voce precisa escolher um CAIXA")
+        if not (self.tipo_moeda):
+            raise ValidationError("Voce precisa escolher TIPO de MOEDA ")
 
     def save(self, *args, **kwargs):
+        if not (self.tipo_moeda):
+            self.clean()
 
         if self.efetuado:
             val = Pagamento.objects.get(pk=self.id)
