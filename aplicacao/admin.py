@@ -69,7 +69,7 @@ class PagamentoInline(admin.TabularInline):
     def formfield_for_dbfield(self, db_field, **kwargs):
         field = super(PagamentoInline, self).formfield_for_dbfield(db_field, **kwargs)
         if db_field.name == "caixa":
-            field.queryset = Caixa.objects.all().order_by("-data")
+            field.queryset = Caixa.objects.all().order_by("data")
         return field
 
     model = Pagamento
