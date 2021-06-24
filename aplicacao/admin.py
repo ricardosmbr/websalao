@@ -20,7 +20,26 @@ from django.http import HttpResponse
 import csv
 
 
-class ClientesAdmin(admin.ModelAdmin):
+class ExportCsvMixin:
+    def export_as_csv(self, request, queryset):
+
+        meta = self.model._meta
+        field_names = [field.name for field in meta.fields]
+
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = "attachment; filename={}.csv".format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in field_names])
+
+        return response
+
+    export_as_csv.short_description = "Export Selected"
+
+
+class ClientesAdmin(admin.ModelAdmin, ExportCsvMixin):
 
     fields = (
         "nome",
@@ -35,6 +54,7 @@ class ClientesAdmin(admin.ModelAdmin):
     )
     list_display = ("nome", "telefone", "celular", "nascimento")
     model = Clientes
+    actions = ["export_as_csv"]
 
 
 class EspecializacaoInline(admin.TabularInline):
@@ -135,25 +155,6 @@ class AgendaServicoAdmin(admin.ModelAdmin):
         extra_context["agenda"] = mark_safe(html_calendar)
         # print(extra_context)
         return super(AgendaServicoAdmin, self).changelist_view(request, extra_context)
-
-
-class ExportCsvMixin:
-    def export_as_csv(self, request, queryset):
-
-        meta = self.model._meta
-        field_names = [field.name for field in meta.fields]
-
-        response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = "attachment; filename={}.csv".format(meta)
-        writer = csv.writer(response)
-
-        writer.writerow(field_names)
-        for obj in queryset:
-            row = writer.writerow([getattr(obj, field) for field in field_names])
-
-        return response
-
-    export_as_csv.short_description = "Export Selected"
 
 
 class CaixaAdmin(ImportExportModelAdmin, ExportCsvMixin):
