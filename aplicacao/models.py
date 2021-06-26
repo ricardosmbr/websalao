@@ -22,6 +22,7 @@ class Clientes(models.Model):
     class Meta:
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
+        ordering = ("nome",)
 
 
 class Profissionais(models.Model):
@@ -40,6 +41,7 @@ class Profissionais(models.Model):
     class Meta:
         verbose_name = "Profissional"
         verbose_name_plural = "Profissionais"
+        ordering = ("nome",)
 
 
 class Especializacao(models.Model):
@@ -52,6 +54,7 @@ class Especializacao(models.Model):
     class Meta:
         verbose_name = "Especialização"
         verbose_name_plural = "Especializações"
+        ordering = ("nome",)
 
 
 class Servicos(models.Model):
