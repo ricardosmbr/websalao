@@ -115,7 +115,7 @@ class AgendaEvent(HTMLCalendar):
             elif today.weekday() == 6 and coluna.nome == "Domingo":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
         # print(qtde)
-        for i in range(qtde):
+        for i in range(qtde + 1):
             uma = timedelta(hours=qtde + i)
             linha = linha + "<th>" + str(uma) + "</th>"
             for pro in proficionais:
