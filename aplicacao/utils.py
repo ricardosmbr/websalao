@@ -22,12 +22,14 @@ class AgendaEvent(HTMLCalendar):
             events_from_day = events.filter(
                 data__day=day, hora__hour=int(hora.seconds / 3600), profissional=pro
             )
-        # print(events_from_day)
-        events_html = "<ul>"
-        for event in events_from_day:
-            # print(event.hora, hora)
-            events_html += event.get_absolute_url() + "<br>"
-        events_html += "</ul>"
+            # print(events_from_day)
+            events_html = "<ul>"
+            for event in events_from_day:
+                # print(event.hora, hora)
+                events_html += event.get_absolute_url() + "<br>"
+            events_html += "</ul>"
+        else:
+            return ""
 
         if day == 0:
             return '<td class="noday">&nbsp;</td>'  # day outside month
