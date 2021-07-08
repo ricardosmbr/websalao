@@ -111,6 +111,7 @@ class AgendaServico(models.Model):
 
 TIPO_MOEDA = (
     ("DINHEIRO", "Dinheiro"),
+    ("PIX", "Pix"),
     ("CARTÂO_DEBITO", "Cartão Débito"),
     ("CARTÂO_CREDITO", "Cartão Crédito"),
     ("CHEQUE", "Cheque"),
