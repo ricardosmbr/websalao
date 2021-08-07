@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db import models
 from .models import (
     Clientes,
     Profissionais,
@@ -9,6 +10,7 @@ from .models import (
     Caixa,
     Produto,
     Pedido,
+    Comissoes,
 )
 from .utils import AgendaEvent
 from django.urls import reverse
@@ -63,6 +65,16 @@ class EspecializacaoInline(admin.TabularInline):
 
 class ServicosInline(admin.TabularInline):
     model = Servicos
+
+
+class ComissoesInline(admin.TabularInline):
+    list_display = ("valor", "profissional")
+    model = Comissoes
+    readonly_fields = (
+        "valor",
+        "profissional",
+    )
+    extra = 0
 
 
 class PagamentoInline(admin.TabularInline):
@@ -166,8 +178,13 @@ class AgendaServicoAdmin(admin.ModelAdmin):
 class CaixaAdmin(ImportExportModelAdmin, ExportCsvMixin):
     list_display = ["data", "valor"]
     model = Caixa
-    inlines = [PagamentoInline]
+    inlines = [PagamentoInline, ComissoesInline]
     actions = ["export_as_csv"]
+
+
+class ComissoesAdmin(admin.ModelAdmin):
+    list_display = ["profissional", "data", "valor"]
+    models = Comissoes
 
 
 admin.site.register(Clientes, ClientesAdmin)
@@ -175,3 +192,4 @@ admin.site.register(Profissionais, ProfissionaisAdmin)
 admin.site.register(AgendaServico, AgendaServicoAdmin)
 admin.site.register(Caixa, CaixaAdmin)
 admin.site.register(Produto, ProdutoAdmin)
+admin.site.register(Comissoes, ComissoesAdmin)

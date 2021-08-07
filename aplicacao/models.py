@@ -128,6 +128,13 @@ class Caixa(models.Model):
     def save(self, *args, **kwargs):
         pagamentos = Pagamento.objects.filter(caixa=self.pk).values("valor")
         self.valor = pagamentos.aggregate(Sum("valor")).get("valor__sum") or 0
+        pagamentos = Pagamento.objects.filter(caixa=self.pk)
+        comissao = Comissoes.objects.filter(caixa=self)
+        for com in comissao:
+            for pag in pagamentos:
+                if pag.agenda.profissional.comissao > 0:
+                    com.valor = (pag.valor / 100) * pag.agenda.profissional.comissao
+                    com.save()
         super().save(*args, **kwargs)
 
 
@@ -135,7 +142,7 @@ class Pagamento(models.Model):
 
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     tipo_moeda = models.CharField(
-        max_length=30, choices=TIPO_MOEDA, default="PENDENTE", null=True, blank=True
+        max_length=30, choices=TIPO_MOEDA, default="DINHEIRO", null=True, blank=True
     )
     data = models.DateTimeField(auto_now=True, blank=True)
     agenda = models.ForeignKey(AgendaServico, on_delete=models.CASCADE)
@@ -156,15 +163,16 @@ class Pagamento(models.Model):
         if not (self.tipo_moeda):
             self.clean()
 
-        if self.efetuado:
-            val = Pagamento.objects.get(pk=self.id)
-            self.caixa.valor = self.caixa.valor - val.valor + self.valor
-            self.caixa.save()
-        else:
-            if not self.caixa:
-                self.clean()
-            self.caixa.valor = self.caixa.valor + self.valor
-            self.caixa.save()
+        if not self.efetuado:
+            taxa = self.agenda.profissional.comissao
+            profissional = self.agenda.profissional
+            if self.agenda.profissional.comissao > 0:
+                Comissoes.objects.create(
+                    profissional=profissional,
+                    valor=(self.valor / 100) * taxa,
+                    data=self.data,
+                    caixa=self.caixa,
+                )
             self.efetuado = True
         super().save(*args, **kwargs)
 
@@ -193,3 +201,20 @@ class Pedido(models.Model):
     agenda = models.ForeignKey(
         AgendaServico, on_delete=models.CASCADE, null=True, blank=True
     )
+
+
+class Comissoes(models.Model):
+    profissional = models.ForeignKey(Profissionais, on_delete=models.CASCADE)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    data = models.DateTimeField(auto_now=True, blank=True)
+    caixa = models.ForeignKey(Caixa, on_delete=models.SET_NULL, null=True, blank=True)
+    criado_em = models.DateTimeField(auto_now_add=True, blank=True)
+    atualizado_em = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.profissional.nome
+
+    class Meta:
+        verbose_name = "Comissão"
+        verbose_name_plural = "Comissões"
+        ordering = ["profissional"]
