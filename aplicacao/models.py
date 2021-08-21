@@ -132,6 +132,7 @@ class Caixa(models.Model):
         comissao = Comissoes.objects.filter(caixa=self)
         total_comissao = 0
         for com in comissao:
+            total_comissao = total_comissao + com.valor
             for pag in pagamentos:
                 if pag.agenda.profissional.comissao > 0:
                     com.valor = (pag.valor / 100) * pag.agenda.profissional.comissao
