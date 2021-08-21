@@ -45,5 +45,4 @@ deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
     - dpl --provider=heroku --app="websalao" --api-key=$HEROKU_API_KEY
-    - dpl git_push --heroku master
     - echo "Application successfully deployed."
