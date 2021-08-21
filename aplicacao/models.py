@@ -134,7 +134,6 @@ class Caixa(models.Model):
             for pag in pagamentos:
                 if pag.agenda.profissional.comissao > 0:
                     com.valor = (pag.valor / 100) * pag.agenda.profissional.comissao
-                    total_comissao = total_comissao + com.valor
                     com.save()
         comissoes = Comissoes.objects.filter(caixa=self.pk).values("valor")
         total_comissao = comissoes.aggregate(Sum("valor")).get("valor__sum") or 0
