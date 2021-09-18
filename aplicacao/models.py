@@ -117,17 +117,20 @@ class AgendaServico(models.Model):
             pass
         if pagamento:
             if profissional.comissao == 0:
-                Comissoes.objects.filter(caixa=pagamento.caixa).delete()
+                Comissoes.objects.filter(caixa=pagamento.caixa, agenda=self.pk).delete()
                 pagamento.caixa.valor = pagamento.valor
                 pagamento.caixa.save()
             else:
-                comissao = Comissoes.objects.filter(caixa=pagamento.caixa)
+                comissao = Comissoes.objects.filter(
+                    caixa=pagamento.caixa, agenda=self.pk
+                )
                 if not (comissao):
                     Comissoes.objects.create(
                         profissional=profissional,
                         valor=(pagamento.valor / 100) * profissional.comissao,
                         data=self.data,
                         caixa=pagamento.caixa,
+                        agenda=self,
                     )
 
         super().save(*args, **kwargs)
@@ -193,7 +196,7 @@ class Pagamento(models.Model):
                     valor=(self.valor / 100) * taxa,
                     data=self.data,
                     caixa=self.caixa,
-                    agenda=self.agenda,
+                    agenda=self.agenda.pk,
                 )
             self.efetuado = True
         super().save(*args, **kwargs)
