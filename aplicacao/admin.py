@@ -68,11 +68,12 @@ class ServicosInline(admin.TabularInline):
 
 
 class ComissoesInline(admin.TabularInline):
-    list_display = ("valor", "profissional")
+
     model = Comissoes
     readonly_fields = (
         "valor",
         "profissional",
+        "agenda",
     )
     extra = 0
 

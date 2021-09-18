@@ -141,8 +141,7 @@ class AgendaEvent(HTMLCalendar):
 @receiver(post_save, sender=Pagamento)
 def salva_caixa(sender, instance, **kwargs):
     caixa = Caixa.objects.get(id=instance.caixa.id)
-    caixa.valor = instance.valor - caixa.valor + instance.valor
-    comissao = Comissoes.objects.filter(caixa=caixa)
+    comissao = Comissoes.objects.filter(caixa=caixa, agenda=instance.agenda.id)
     for com in comissao:
         if instance.agenda.profissional.comissao > 0:
             com.valor = (instance.valor / 100) * instance.agenda.profissional.comissao
