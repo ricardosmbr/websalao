@@ -108,6 +108,30 @@ class AgendaServico(models.Model):
         )
         return '<a href="%s">%s</a>' % (url, str(self.cliente))
 
+    def save(self, *args, **kwargs):
+        profissional = Profissionais.objects.get(pk=self.profissional.id)
+        pagamento = None
+        try:
+            pagamento = Pagamento.objects.get(agenda__id=self.pk)
+        except:
+            pass
+        if pagamento:
+            if profissional.comissao == 0:
+                Comissoes.objects.filter(caixa=pagamento.caixa).delete()
+                pagamento.caixa.valor = pagamento.valor
+                pagamento.caixa.save()
+            else:
+                comissao = Comissoes.objects.filter(caixa=pagamento.caixa)
+                if not (comissao):
+                    Comissoes.objects.create(
+                        profissional=profissional,
+                        valor=(pagamento.valor / 100) * profissional.comissao,
+                        data=self.data,
+                        caixa=pagamento.caixa,
+                    )
+
+        super().save(*args, **kwargs)
+
 
 TIPO_MOEDA = (
     ("DINHEIRO", "Dinheiro"),
@@ -129,12 +153,6 @@ class Caixa(models.Model):
         pagamentos = Pagamento.objects.filter(caixa=self.pk).values("valor")
         self.valor = pagamentos.aggregate(Sum("valor")).get("valor__sum") or 0
         pagamentos = Pagamento.objects.filter(caixa=self.pk)
-        comissao = Comissoes.objects.filter(caixa=self.pk)
-        for com in comissao:
-            for pag in pagamentos:
-                if pag.agenda.profissional.comissao > 0:
-                    com.valor = (pag.valor / 100) * pag.agenda.profissional.comissao
-                    com.save()
         comissoes = Comissoes.objects.filter(caixa=self.pk).values("valor")
         total_comissao = comissoes.aggregate(Sum("valor")).get("valor__sum") or 0
         self.valor = self.valor - total_comissao
@@ -175,6 +193,7 @@ class Pagamento(models.Model):
                     valor=(self.valor / 100) * taxa,
                     data=self.data,
                     caixa=self.caixa,
+                    agenda=self.agenda,
                 )
             self.efetuado = True
         super().save(*args, **kwargs)
@@ -213,6 +232,9 @@ class Comissoes(models.Model):
     caixa = models.ForeignKey(Caixa, on_delete=models.SET_NULL, null=True, blank=True)
     criado_em = models.DateTimeField(auto_now_add=True, blank=True)
     atualizado_em = models.DateTimeField(auto_now=True, blank=True)
+    agenda = models.ForeignKey(
+        AgendaServico, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self):
         return self.profissional.nome
