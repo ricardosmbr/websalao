@@ -197,11 +197,7 @@ class Pagamento(models.Model):
                     valor=(self.valor / 100) * taxa,
                     data=self.data,
                     caixa=self.caixa,
-<<<<<<< HEAD
-                    agenda=self.agenda.pk,
-=======
-                    agenda=agenda,
->>>>>>> dev
+                    agenda=agenda
                 )
             self.efetuado = True
         super().save(*args, **kwargs)
