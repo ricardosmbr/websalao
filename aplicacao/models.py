@@ -190,13 +190,14 @@ class Pagamento(models.Model):
         if not self.efetuado:
             taxa = self.agenda.profissional.comissao
             profissional = self.agenda.profissional
+            agenda = AgendaServico.objects.get(self.agenda.pk)
             if self.agenda.profissional.comissao > 0:
                 Comissoes.objects.create(
                     profissional=profissional,
                     valor=(self.valor / 100) * taxa,
                     data=self.data,
                     caixa=self.caixa,
-                    agenda=self.agenda.pk,
+                    agenda=agenda,
                 )
             self.efetuado = True
         super().save(*args, **kwargs)
