@@ -1,8 +1,10 @@
 from calendar import HTMLCalendar
 from datetime import datetime as dtime, date, time
 from datetime import timedelta
-from .models import AgendaServico, Profissionais
+from .models import AgendaServico, Comissoes, Profissionais, Caixa, Pagamento
 from configuracao.models import Configuracao, Dias_semana
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # from .models import Event
 
@@ -134,3 +136,14 @@ class AgendaEvent(HTMLCalendar):
         # print(''.join(v))
         return "".join(v)
         return None
+
+
+@receiver(post_save, sender=Pagamento)
+def salva_caixa(sender, instance, **kwargs):
+    caixa = Caixa.objects.get(id=instance.caixa.id)
+    comissao = Comissoes.objects.filter(caixa=caixa, agenda=instance.agenda.id)
+    for com in comissao:
+        if instance.agenda.profissional.comissao > 0:
+            com.valor = (instance.valor / 100) * instance.agenda.profissional.comissao
+            com.save()
+    caixa.save()
