@@ -63,7 +63,7 @@ class EspecializacaoInline(admin.TabularInline):
     model = Especializacao
 
 
-class ServicosInline(admin.TabularInline):
+class ServicosAdmin(admin.ModelAdmin, ExportCsvMixin):
     model = Servicos
 
 
@@ -120,7 +120,6 @@ class ProfissionaisAdmin(admin.ModelAdmin):
     list_display = ("nome", "telefone", "comissao")
     inlines = [
         EspecializacaoInline,
-        ServicosInline,
     ]
     model = Profissionais
 
@@ -189,6 +188,7 @@ class ComissoesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Clientes, ClientesAdmin)
+admin.site.register(Servicos, ServicosAdmin)
 admin.site.register(Profissionais, ProfissionaisAdmin)
 admin.site.register(AgendaServico, AgendaServicoAdmin)
 admin.site.register(Caixa, CaixaAdmin)

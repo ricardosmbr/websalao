@@ -2,19 +2,19 @@ version: "3.1"
 
 services:
   
-#   db:
-#     image: postgres
-#     restart: always
-#     environment:
-#       POSTGRES_PASSWORD: "mypassword"
-#       POSTGRES_USER: "myuser"
-#       POSTGRES_DB: "salao"
+  db2:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "mypassword"
+      POSTGRES_USER: "myuser"
+      POSTGRES_DB: "salao"
 
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   websalao:
     build: .
@@ -25,12 +25,12 @@ services:
     ports:
       - "8050:8050"
 
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: "ricardosm@rede.ulbra.br"
-  #     PGADMIN_DEFAULT_PASSWORD: "2323"
-  #   ports:
-  #     - "16543:80"
-  #   depends_on:
-  #     - db
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "ricardosm@rede.ulbra.br"
+      PGADMIN_DEFAULT_PASSWORD: "2323"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db2

@@ -61,7 +61,6 @@ class Servicos(models.Model):
     nome = models.CharField(max_length=50)
     duracao = models.IntegerField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
-    profissional = models.ForeignKey(Profissionais, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
