@@ -103,24 +103,33 @@ class AgendaEvent(HTMLCalendar):
         a(profi)
         linha = "<tr>"
         qtde = 0
+        hora_ini = 0
         for coluna in hora:
+            print(coluna.hora_inicio,coluna.hora_fim)
             if today.weekday() == 0 and coluna.nome == "SEGUNDA":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
             elif today.weekday() == 1 and coluna.nome == "TERÇA":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
             elif today.weekday() == 2 and coluna.nome == "QUARTA":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
             elif today.weekday() == 3 and coluna.nome == "QUINTA":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
             elif today.weekday() == 4 and coluna.nome == "SEXTA":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
             elif today.weekday() == 5 and coluna.nome == "SABADO":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
             elif today.weekday() == 6 and coluna.nome == "Domingo":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
+                hora_ini = coluna.hora_inicio.hour
         # print(qtde)
         for i in range(qtde + 1):
-            uma = timedelta(hours=qtde + i)
+            uma = timedelta(hours=hora_ini + i)
             linha = linha + "<th>" + str(uma) + "</th>"
             for pro in proficionais:
                 # linha = linha + '<th></th>'
