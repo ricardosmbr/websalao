@@ -183,7 +183,7 @@ class CaixaAdmin(ImportExportModelAdmin, ExportCsvMixin):
 
 
 class ComissoesAdmin(admin.ModelAdmin):
-    list_display = ["profissional", "data", "valor"]
+    list_display = ["profissional","agenda", "data", "valor"]
     models = Comissoes
 
 
