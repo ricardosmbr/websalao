@@ -181,11 +181,10 @@ class CaixaAdmin(ImportExportModelAdmin, ExportCsvMixin):
     inlines = [PagamentoInline, ComissoesInline]
     actions = ["export_as_csv"]
 
-
 class ComissoesAdmin(admin.ModelAdmin):
     list_display = ["profissional","agenda", "data", "valor"]
     models = Comissoes
-
+    ordering = ['-data']
 
 admin.site.register(Clientes, ClientesAdmin)
 admin.site.register(Servicos, ServicosAdmin)
