@@ -160,6 +160,10 @@ class Caixa(models.Model):
         self.valor = self.valor - total_comissao
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = "Caixa"
+        verbose_name_plural = "Caixas"
+        ordering = ["data"]
 
 class Pagamento(models.Model):
 

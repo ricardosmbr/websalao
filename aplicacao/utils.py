@@ -105,7 +105,7 @@ class AgendaEvent(HTMLCalendar):
         qtde = 0
         hora_ini = 0
         for coluna in hora:
-            print(coluna.hora_inicio,coluna.hora_fim)
+            # print(coluna.hora_inicio,coluna.hora_fim)
             if today.weekday() == 0 and coluna.nome == "SEGUNDA":
                 qtde = coluna.hora_fim.hour - coluna.hora_inicio.hour
                 hora_ini = coluna.hora_inicio.hour
