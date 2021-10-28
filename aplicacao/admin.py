@@ -180,6 +180,7 @@ class CaixaAdmin(ImportExportModelAdmin, ExportCsvMixin):
     model = Caixa
     inlines = [PagamentoInline, ComissoesInline]
     actions = ["export_as_csv"]
+    ordering = ['-data']
 
 class ComissoesAdmin(admin.ModelAdmin):
     list_display = ["profissional","agenda", "data", "valor"]
