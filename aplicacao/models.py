@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.db.models import Sum
 
@@ -250,3 +249,28 @@ class Comissoes(models.Model):
         verbose_name = "Comissão"
         verbose_name_plural = "Comissões"
         ordering = ["profissional"]
+
+
+class Relatorios(models.Model):
+    nome = models.CharField(max_length=255)
+    data_ini = models.DateField()
+    data_fim = models.DateField()
+    valor = models.DecimalField(max_digits=10, decimal_places=2,default=0)
+    profissional = models.ForeignKey(Profissionais,on_delete=models.CASCADE, null=True,blank=True)
+    valor_comissao = models.DecimalField(max_digits=10, decimal_places=2,default=0)
+
+    def save(self,*args,**kwargs):
+        valor = 0
+        caixas = Caixa.objects.filter(data__gte=self.data_ini,data__lte=self.data_fim)
+        if(self.profissional):
+            comissoes = Comissoes.objects.filter(profissional=self.profissional)
+            total_comissao = comissoes.aggregate(
+                total_valor_comissao=Sum("valor")
+            )
+            self.valor_comissao = total_comissao["total_valor_comissao"] or 0   
+        else:
+            self.valor_comissao = 0
+        for caixa in caixas:
+            valor = valor + caixa.valor
+        self.valor = valor
+        super().save(*args, **kwargs)
