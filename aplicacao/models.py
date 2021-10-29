@@ -263,7 +263,11 @@ class Relatorios(models.Model):
         valor = 0
         caixas = Caixa.objects.filter(data__gte=self.data_ini,data__lte=self.data_fim)
         if(self.profissional):
-            comissoes = Comissoes.objects.filter(profissional=self.profissional)
+            comissoes = Comissoes.objects.filter(
+                profissional=self.profissional,
+                data__gte=self.data_ini,
+                data__lte=self.data_fim
+            )
             total_comissao = comissoes.aggregate(
                 total_valor_comissao=Sum("valor")
             )
