@@ -28,3 +28,7 @@ class Dias_semana(models.Model):
     hora_inicio = models.TimeField(blank=True, null=True)
     hora_fim = models.TimeField(blank=True, null=True)
     id_configuracao = models.ForeignKey(Configuracao, on_delete=models.CASCADE)
+
+class Relatorios(models.Model):
+    data_ini = models.DateField()
+    data_fim = models.DateField()

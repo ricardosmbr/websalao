@@ -11,6 +11,7 @@ from .models import (
     Produto,
     Pedido,
     Comissoes,
+    Relatorios,
 )
 from .utils import AgendaEvent
 from django.urls import reverse
@@ -187,6 +188,11 @@ class ComissoesAdmin(admin.ModelAdmin):
     models = Comissoes
     ordering = ['-data']
 
+
+class RelatoriosAdmin(admin.ModelAdmin):
+    list_display = ["nome","profissional","valor_comissao", "valor"]
+    models = Relatorios
+
 admin.site.register(Clientes, ClientesAdmin)
 admin.site.register(Servicos, ServicosAdmin)
 admin.site.register(Profissionais, ProfissionaisAdmin)
@@ -194,3 +200,4 @@ admin.site.register(AgendaServico, AgendaServicoAdmin)
 admin.site.register(Caixa, CaixaAdmin)
 admin.site.register(Produto, ProdutoAdmin)
 admin.site.register(Comissoes, ComissoesAdmin)
+admin.site.register(Relatorios, RelatoriosAdmin)
