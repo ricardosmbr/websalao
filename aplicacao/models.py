@@ -272,9 +272,11 @@ class Relatorios(models.Model):
                 total_valor_comissao=Sum("valor")
             )
             self.valor_comissao = total_comissao["total_valor_comissao"] or 0   
-        else:
-            self.valor_comissao = 0
-        for caixa in caixas:
-            valor = valor + caixa.valor
-        self.valor = valor
+
+        if(caixas):
+            total_comissao = caixas.aggregate(
+                total_valor_comissao=Sum("valor")
+            )
+            self.valor = total_comissao["total_valor_comissao"] or 0            
+
         super().save(*args, **kwargs)
