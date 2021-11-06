@@ -184,7 +184,7 @@ class CaixaAdmin(ImportExportModelAdmin, ExportCsvMixin):
     ordering = ['-data']
 
 class ComissoesAdmin(admin.ModelAdmin):
-    list_display = ["profissional","agenda", "data", "valor"]
+    list_display = ["profissional","agenda", "caixa", "valor"]
     models = Comissoes
     ordering = ['-data']
 
