@@ -234,7 +234,7 @@ class Pedido(models.Model):
 class Comissoes(models.Model):
     profissional = models.ForeignKey(Profissionais, on_delete=models.CASCADE)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
-    data = models.DateTimeField(auto_now=True, blank=True)
+    data = models.DateField(auto_now=True, blank=True)
     caixa = models.ForeignKey(Caixa, on_delete=models.SET_NULL, null=True, blank=True)
     criado_em = models.DateTimeField(auto_now_add=True, blank=True)
     atualizado_em = models.DateTimeField(auto_now=True, blank=True)
