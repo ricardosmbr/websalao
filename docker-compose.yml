@@ -25,12 +25,12 @@ services:
     ports:
       - "8050:8050"
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "ricardosm@rede.ulbra.br"
-      PGADMIN_DEFAULT_PASSWORD: "2323"
-    ports:
-      - "16543:80"
-    depends_on:
-      - db2
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "ricardosm@rede.ulbra.br"
+  #     PGADMIN_DEFAULT_PASSWORD: "2323"
+  #   ports:
+  #     - "16543:80"
+  #   depends_on:
+  #     - db2
