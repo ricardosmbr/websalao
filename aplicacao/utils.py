@@ -50,8 +50,7 @@ class AgendaEvent(HTMLCalendar):
         """
         Return a formatted month as a table.
         """
-        # print(themonth)
-        events = AgendaServico.objects.filter(data__month=themonth)
+        events = AgendaServico.objects.filter(data__month=themonth,data__year=theyear)
         proficionais = Profissionais.objects.all().order_by("nome")
         confi = Configuracao.objects.all().first()
         hora = Dias_semana.objects.filter(id_configuracao=confi)
