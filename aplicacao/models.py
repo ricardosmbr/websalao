@@ -258,6 +258,7 @@ class Relatorios(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=2,default=0)
     profissional = models.ForeignKey(Profissionais,on_delete=models.CASCADE, null=True,blank=True)
     valor_comissao = models.DecimalField(max_digits=10, decimal_places=2,default=0)
+    saldo = models.DecimalField(max_digits=10, decimal_places=2,default=0)
 
     def save(self,*args,**kwargs):
         valor = 0

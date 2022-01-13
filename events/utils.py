@@ -40,7 +40,7 @@ class EventCalendar(HTMLCalendar):
         Return a formatted month as a table.
         """
         # events = Event.objects.filter(day__month=themonth)
-        events = AgendaServico.objects.filter(data__month=themonth)
+        events = AgendaServico.objects.filter(data__month=themonth,data__year=theyear)
         # print(events)
         v = []
         a = v.append
