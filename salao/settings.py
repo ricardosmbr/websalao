@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -37,11 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "graphene_django",
+    "debug_toolbar",
+    "import_export",
     "aplicacao",
     "configuracao",
     "events",
-    "debug_toolbar",
-    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,10 @@ TEMPLATES = [
         },
     },
 ]
+
+GRAPHENE = {
+    "SCHEMA": "aplicacao.schema.schema"
+}
 
 WSGI_APPLICATION = "salao.wsgi.application"
 
