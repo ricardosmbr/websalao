@@ -25,7 +25,7 @@ SECRET_KEY = "=d7$t)fhsla=-)l0qh%jz8%^00vm&2&r+wci7dc8l1lsivfare"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",'http//:localhost:8050']
 
 
 # Application definition
@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     "aplicacao",
     "configuracao",
     "events",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -81,6 +83,12 @@ GRAPHENE = {
 
 WSGI_APPLICATION = "salao.wsgi.application"
 
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8050',
+)
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
