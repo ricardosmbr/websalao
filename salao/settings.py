@@ -95,13 +95,22 @@ CORS_ORIGIN_WHITELIST = (
 
 if os.getenv("DATABASE_NAME"):
     DATABASES = {
+        # "default": {
+        #     "ENGINE": "django.db.backends.postgresql",
+        #     "HOST": os.getenv("DATABASE_HOST"),
+        #     "PORT": os.getenv("DATABASE_PORT"),
+        #     "USER": os.getenv("DATABASE_USER"),
+        #     "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+        #     "NAME": os.getenv("DATABASE_NAME"),
+        # }
+ 
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "HOST": os.getenv("DATABASE_HOST"),
-            "PORT": os.getenv("DATABASE_PORT"),
-            "USER": os.getenv("DATABASE_USER"),
-            "PASSWORD": os.getenv("DATABASE_PASSWORD"),
-            "NAME": os.getenv("DATABASE_NAME"),
+            "HOST": "ec2-52-54-68-226.compute-1.amazonaws.com",
+            "PORT": 5432,
+            "USER": "pzdmwdvvgtgvcl",
+            "PASSWORD": "3e271fe52a4dd7f769013859f2e1b26054608b9dbc368f5ee723002aaca9e2fc",
+            "NAME": "df47toge9anrvv",
         }
     }
 else:
