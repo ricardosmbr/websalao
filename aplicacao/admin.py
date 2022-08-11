@@ -89,7 +89,10 @@ class PagamentoInline(admin.TabularInline):
         field = super(PagamentoInline, self).formfield_for_dbfield(db_field, **kwargs)     
         hoje = datetime.date.today()
         if db_field.name == "caixa":
-            field.queryset = Caixa.objects.filter(data__year=hoje.year).order_by("data")
+            field.queryset = Caixa.objects.filter(
+                data__year=hoje.year,
+                data__month=hoje.month
+            ).order_by("data")
         return field
 
 
