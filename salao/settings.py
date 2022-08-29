@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from tkinter.filedialog import SaveFileDialog
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,21 +105,52 @@ if os.getenv("DATABASE_NAME"):
         #     "NAME": os.getenv("DATABASE_NAME"),
         # }
  
+        # # Google SQL DB
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "HOST": "ec2-52-54-68-226.compute-1.amazonaws.com",
+            "HOST": "34.151.230.64",
             "PORT": 5432,
-            "USER": "pzdmwdvvgtgvcl",
-            "PASSWORD": "3e271fe52a4dd7f769013859f2e1b26054608b9dbc368f5ee723002aaca9e2fc",
-            "NAME": "df47toge9anrvv",
+            "USER": "ricardosm",
+            "PASSWORD": "Rsmi2402@!",
+            "NAME": "postgres",
         }
+
+
+        # "default": {
+        #     "ENGINE": "django.db.backends.postgresql",
+        #     "HOST": "ec2-52-54-68-226.compute-1.amazonaws.com",
+        #     "PORT": 5432,
+        #     "USER": "pzdmwdvvgtgvcl",
+        #     "PASSWORD": "3e271fe52a4dd7f769013859f2e1b26054608b9dbc368f5ee723002aaca9e2fc",
+        #     "NAME": "df47toge9anrvv",
+        # }
     }
 else:
     DATABASES = {
+        # "default": {
+        #     "ENGINE": "django.db.backends.sqlite3",
+        #     "NAME": BASE_DIR / "db.sqlite3",
+        # }
+
+        # # Google SQL DB
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": "34.151.230.64",
+            "PORT": 5432,
+            "USER": "ricardosm",
+            "PASSWORD": "Rsmi2402@!",
+            "NAME": "postgres",
         }
+
+        # "default": {
+        #     "ENGINE": "django.db.backends.postgresql",
+        #     "HOST": "ec2-52-54-68-226.compute-1.amazonaws.com",
+        #     "PORT": 5432,
+        #     "USER": "pzdmwdvvgtgvcl",
+        #     "PASSWORD": "3e271fe52a4dd7f769013859f2e1b26054608b9dbc368f5ee723002aaca9e2fc",
+        #     "NAME": "df47toge9anrvv",
+        # }
+
     }
 
 
