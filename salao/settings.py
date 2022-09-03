@@ -105,24 +105,24 @@ if os.getenv("DATABASE_NAME"):
         # }
  
         # # RDS Amazon
-        # "default": {
-        #     "ENGINE": "django.db.backends.postgresql",
-        #     "HOST": "34.151.230.64",
-        #     "PORT": 5432,
-        #     "USER": "postgres",
-        #     "PASSWORD": "Rsmi2402!!",
-        #     "NAME": "salao",
-        # }
-
-        # ip 52.54.68.226
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "HOST": "ec2-52-54-68-226.compute-1.amazonaws.com",
+            "HOST": "15.229.91.203",
             "PORT": 5432,
-            "USER": "pzdmwdvvgtgvcl",
-            "PASSWORD": "3e271fe52a4dd7f769013859f2e1b26054608b9dbc368f5ee723002aaca9e2fc",
-            "NAME": "df47toge9anrvv",
+            "USER": "postgres",
+            "PASSWORD": "Rsmi2402!!",
+            "NAME": "salao",
         }
+
+        # # ip 52.54.68.226
+        # "default": {
+        #     "ENGINE": "django.db.backends.postgresql",
+        #     "HOST": "ec2-52-54-68-226.compute-1.amazonaws.com",
+        #     "PORT": 5432,
+        #     "USER": "pzdmwdvvgtgvcl",
+        #     "PASSWORD": "3e271fe52a4dd7f769013859f2e1b26054608b9dbc368f5ee723002aaca9e2fc",
+        #     "NAME": "df47toge9anrvv",
+        # }
     }
 else:
     DATABASES = {
