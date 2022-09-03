@@ -104,10 +104,10 @@ if os.getenv("DATABASE_NAME"):
         #     "NAME": os.getenv("DATABASE_NAME"),
         # }
  
-        # # RDS Amazon
+        # # RDS Amazon ec2-15-229-91-203.sa-east-1.compute.amazonaws.com (172.31.15.131)
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "HOST": "flavia.cv38qdrccnvt.sa-east-1.rds.amazonaws.com",
+            "HOST": "172.31.15.131",
             "PORT": 5432,
             "USER": "postgres",
             "PASSWORD": "Rsmi2402!!",
