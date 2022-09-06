@@ -126,20 +126,20 @@ if os.getenv("DATABASE_NAME"):
     }
 else:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+        # "default": {
+        #     "ENGINE": "django.db.backends.sqlite3",
+        #     "NAME": BASE_DIR / "db.sqlite3",
+        # }
 
         # # RDS ec2-15-229-91-203.sa-east-1.compute.amazonaws.com (15.229.91.203) 
-        # "default": {
-        #     "ENGINE": "django.db.backends.postgresql",
-        #     "HOST": "15.229.91.203",
-        #     "PORT": 5432,
-        #     "USER": "postgres",
-        #     "PASSWORD": "Rsmi2402!!",
-        #     "NAME": "salao",
-        # }
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": "flavia.cv38qdrccnvt.sa-east-1.rds.amazonaws.com",
+            "PORT": 5432,
+            "USER": "postgres",
+            "PASSWORD": "Rsmi2402!!",
+            "NAME": "salao",
+        }
 
         # "default": {
         #     "ENGINE": "django.db.backends.postgresql",
