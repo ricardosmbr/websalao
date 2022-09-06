@@ -19,7 +19,7 @@ services:
   websalao:
     build: .
     restart: always
-    command: python3 manage.py runserver 0.0.0.0:80
+    command: python3 manage.py runserver 0.0.0.0:8050
     volumes:
       - .:/code
     ports:
